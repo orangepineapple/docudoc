@@ -1,0 +1,7 @@
+How is highlighted quotes matched in the evidence based
+Can quotes be double quoted
+The current quote should highlight in blue, the yellow on yellow is hard to see
+What are the different pipeline types for
+How can we make the models faster? Make better use of the CPU
+Testing framework done how? Any reinforment learning we can do on the model. Maybe distill a little with my claude code subscription
+Fine tune at all? I suppose the model doesnt need to know what the words means, it just have to match question to answer?

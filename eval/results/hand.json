@@ -1,0 +1,993 @@
+{
+ "run": "hand",
+ "configs": {
+  "qwen2.5:7b|v0_baseline": {
+   "config": {
+    "model": "qwen2.5:7b",
+    "variant": "v0_baseline",
+    "route": true,
+    "think": false,
+    "drop_ungrounded": false
+   },
+   "aggregate": {
+    "n_cases": 1,
+    "overall": {
+     "accuracy": 0.9024390243902439,
+     "precision": 0.6379310344827587,
+     "f1": 0.7474747474747474,
+     "hallucination_rate": 0.14754098360655737,
+     "omission_rate": 0.024390243902439025,
+     "wrong_rate": 0.07317073170731707,
+     "n_gold": 41,
+     "hallucinations_per_case": 18.0
+    },
+    "by_kind": {
+     "text": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 5,
+      "hallucinations_per_case": null
+     },
+     "enum": {
+      "accuracy": 0.8928571428571429,
+      "precision": 0.5434782608695652,
+      "f1": 0.6756756756756757,
+      "hallucination_rate": 0.34615384615384615,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.10714285714285714,
+      "n_gold": 28,
+      "hallucinations_per_case": null
+     },
+     "year": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "bool": {
+      "accuracy": 0.75,
+      "precision": 1.0,
+      "f1": 0.8571428571428571,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.25,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "number": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     }
+    },
+    "by_section": {
+     "vision": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "speaking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "hearing": {
+      "accuracy": 0.9,
+      "precision": 0.9,
+      "f1": 0.9,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.1,
+      "n_gold": 10,
+      "hallucinations_per_case": null
+     },
+     "walking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "eliminating": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "feeding": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "dressing": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "mental": {
+      "accuracy": 0.8695652173913043,
+      "precision": 0.5,
+      "f1": 0.634920634920635,
+      "hallucination_rate": 0.782608695652174,
+      "omission_rate": 0.043478260869565216,
+      "wrong_rate": 0.08695652173913043,
+      "n_gold": 23,
+      "hallucinations_per_case": null
+     },
+     "cumulative": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 6,
+      "hallucinations_per_case": null
+     },
+     "lst": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "cert": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": null,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 2,
+      "hallucinations_per_case": null
+     }
+    },
+    "section_detection": {
+     "precision": 1.0,
+     "recall": 1.0
+    },
+    "grounding": {
+     "flag_precision": null,
+     "flag_recall": null
+    },
+    "latency_ms": {
+     "mean": 171676.0,
+     "p50": 171676,
+     "max": 171676
+    },
+    "tokens_per_case": {
+     "prompt": 14856.0,
+     "output": 1379.0
+    },
+    "schema_errors": 0,
+    "counts": {
+     "true_empty": 104,
+     "correct": 37,
+     "wrong": 3,
+     "omitted": 1,
+     "hallucinated": 18
+    }
+   },
+   "cases": [
+    {
+     "counts": {
+      "true_empty": 104,
+      "correct": 37,
+      "wrong": 3,
+      "omitted": 1,
+      "hallucinated": 18
+     },
+     "errors": {
+      "wrong": [
+       "hearing_q8_lasted_12mo",
+       "mental_q2_needs_supervision_for_meds",
+       "mental_q10_lasted_12mo"
+      ],
+      "omitted": [
+       "mental_q4_adult_family_support"
+      ],
+      "hallucinated": [
+       "mental_q5_adaptive_adapt_to_change",
+       "mental_q5_adaptive_express_needs",
+       "mental_q5_adaptive_transactions",
+       "mental_q5_adaptive_hygiene",
+       "mental_q5_attention_danger_awareness",
+       "mental_q5_concentration_short_term_memory",
+       "mental_q5_judgment_clothing",
+       "mental_q5_judgment_own_treatment",
+       "mental_q5_judgment_exploitation_risk",
+       "mental_q5_memory_personal_info",
+       "mental_q5_memory_important_info",
+       "mental_q5_perception_reality",
+       "mental_q5_perception_delusions",
+       "mental_q5_problem_identify",
+       "mental_q5_problem_implement",
+       "mental_q5_regulation_mood",
+       "mental_q5_comprehension_nonverbal",
+       "mental_q5_comprehension_verbal"
+      ]
+     },
+     "by_kind": {
+      "text": {
+       "true_empty": 25,
+       "correct": 5
+      },
+      "enum": {
+       "true_empty": 34,
+       "correct": 25,
+       "wrong": 3,
+       "hallucinated": 18
+      },
+      "year": {
+       "true_empty": 18,
+       "correct": 4
+      },
+      "bool": {
+       "true_empty": 25,
+       "correct": 3,
+       "omitted": 1
+      },
+      "number": {
+       "true_empty": 2
+      }
+     },
+     "by_section": {
+      "vision": {
+       "true_empty": 14
+      },
+      "speaking": {
+       "true_empty": 10
+      },
+      "hearing": {
+       "correct": 9,
+       "wrong": 1,
+       "true_empty": 1
+      },
+      "walking": {
+       "true_empty": 10
+      },
+      "eliminating": {
+       "true_empty": 10
+      },
+      "feeding": {
+       "true_empty": 10
+      },
+      "dressing": {
+       "true_empty": 10
+      },
+      "mental": {
+       "correct": 20,
+       "wrong": 2,
+       "true_empty": 5,
+       "omitted": 1,
+       "hallucinated": 18
+      },
+      "cumulative": {
+       "true_empty": 7,
+       "correct": 6
+      },
+      "lst": {
+       "true_empty": 27
+      },
+      "cert": {
+       "correct": 2
+      }
+     },
+     "sections": {
+      "gold": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "pred": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "tp": 4,
+      "fp": 0,
+      "fn": 0
+     },
+     "grounding": {},
+     "stats": {
+      "ms": 171676,
+      "prompt_tokens": 14856,
+      "output_tokens": 1379,
+      "errors": 0
+     },
+     "case_id": "hand-000",
+     "style": "structured"
+    }
+   ]
+  },
+  "qwen2.5:7b|v1_schema": {
+   "config": {
+    "model": "qwen2.5:7b",
+    "variant": "v1_schema",
+    "route": true,
+    "think": false,
+    "drop_ungrounded": false
+   },
+   "aggregate": {
+    "n_cases": 1,
+    "overall": {
+     "accuracy": 1.0,
+     "precision": 0.7454545454545455,
+     "f1": 0.8541666666666666,
+     "hallucination_rate": 0.11475409836065574,
+     "omission_rate": 0.0,
+     "wrong_rate": 0.0,
+     "n_gold": 41,
+     "hallucinations_per_case": 14.0
+    },
+    "by_kind": {
+     "text": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 5,
+      "hallucinations_per_case": null
+     },
+     "enum": {
+      "accuracy": 1.0,
+      "precision": 0.6666666666666666,
+      "f1": 0.8,
+      "hallucination_rate": 0.2692307692307692,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 28,
+      "hallucinations_per_case": null
+     },
+     "year": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "bool": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "number": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     }
+    },
+    "by_section": {
+     "vision": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "speaking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "hearing": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 10,
+      "hallucinations_per_case": null
+     },
+     "walking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "eliminating": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "feeding": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "dressing": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "mental": {
+      "accuracy": 1.0,
+      "precision": 0.6216216216216216,
+      "f1": 0.7666666666666667,
+      "hallucination_rate": 0.6086956521739131,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 23,
+      "hallucinations_per_case": null
+     },
+     "cumulative": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 6,
+      "hallucinations_per_case": null
+     },
+     "lst": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "cert": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": null,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 2,
+      "hallucinations_per_case": null
+     }
+    },
+    "section_detection": {
+     "precision": 1.0,
+     "recall": 1.0
+    },
+    "grounding": {
+     "flag_precision": null,
+     "flag_recall": null
+    },
+    "latency_ms": {
+     "mean": 167319.0,
+     "p50": 167319,
+     "max": 167319
+    },
+    "tokens_per_case": {
+     "prompt": 9622.0,
+     "output": 1268.0
+    },
+    "schema_errors": 0,
+    "counts": {
+     "true_empty": 108,
+     "correct": 41,
+     "hallucinated": 14
+    }
+   },
+   "cases": [
+    {
+     "counts": {
+      "true_empty": 108,
+      "correct": 41,
+      "hallucinated": 14
+     },
+     "errors": {
+      "hallucinated": [
+       "mental_q5_adaptive_adapt_to_change",
+       "mental_q5_adaptive_express_needs",
+       "mental_q5_adaptive_transactions",
+       "mental_q5_adaptive_hygiene",
+       "mental_q5_attention_danger_awareness",
+       "mental_q5_concentration_short_term_memory",
+       "mental_q5_judgment_clothing",
+       "mental_q5_judgment_own_treatment",
+       "mental_q5_judgment_exploitation_risk",
+       "mental_q5_memory_personal_info",
+       "mental_q5_memory_important_info",
+       "mental_q5_problem_identify",
+       "mental_q5_problem_implement",
+       "mental_q5_regulation_mood"
+      ]
+     },
+     "by_kind": {
+      "text": {
+       "true_empty": 25,
+       "correct": 5
+      },
+      "enum": {
+       "true_empty": 38,
+       "correct": 28,
+       "hallucinated": 14
+      },
+      "year": {
+       "true_empty": 18,
+       "correct": 4
+      },
+      "bool": {
+       "true_empty": 25,
+       "correct": 4
+      },
+      "number": {
+       "true_empty": 2
+      }
+     },
+     "by_section": {
+      "vision": {
+       "true_empty": 14
+      },
+      "speaking": {
+       "true_empty": 10
+      },
+      "hearing": {
+       "correct": 10,
+       "true_empty": 1
+      },
+      "walking": {
+       "true_empty": 10
+      },
+      "eliminating": {
+       "true_empty": 10
+      },
+      "feeding": {
+       "true_empty": 10
+      },
+      "dressing": {
+       "true_empty": 10
+      },
+      "mental": {
+       "correct": 23,
+       "true_empty": 9,
+       "hallucinated": 14
+      },
+      "cumulative": {
+       "true_empty": 7,
+       "correct": 6
+      },
+      "lst": {
+       "true_empty": 27
+      },
+      "cert": {
+       "correct": 2
+      }
+     },
+     "sections": {
+      "gold": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "pred": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "tp": 4,
+      "fp": 0,
+      "fn": 0
+     },
+     "grounding": {},
+     "stats": {
+      "ms": 167319,
+      "prompt_tokens": 9622,
+      "output_tokens": 1268,
+      "errors": 0
+     },
+     "case_id": "hand-000",
+     "style": "structured"
+    }
+   ]
+  },
+  "qwen2.5:7b|v2_evidence": {
+   "config": {
+    "model": "qwen2.5:7b",
+    "variant": "v2_evidence",
+    "route": true,
+    "think": false,
+    "drop_ungrounded": false
+   },
+   "aggregate": {
+    "n_cases": 1,
+    "overall": {
+     "accuracy": 1.0,
+     "precision": 0.8913043478260869,
+     "f1": 0.9425287356321839,
+     "hallucination_rate": 0.040983606557377046,
+     "omission_rate": 0.0,
+     "wrong_rate": 0.0,
+     "n_gold": 41,
+     "hallucinations_per_case": 5.0
+    },
+    "by_kind": {
+     "text": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 5,
+      "hallucinations_per_case": null
+     },
+     "enum": {
+      "accuracy": 1.0,
+      "precision": 0.8484848484848485,
+      "f1": 0.9180327868852458,
+      "hallucination_rate": 0.09615384615384616,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 28,
+      "hallucinations_per_case": null
+     },
+     "year": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "bool": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 4,
+      "hallucinations_per_case": null
+     },
+     "number": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     }
+    },
+    "by_section": {
+     "vision": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "speaking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "hearing": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 10,
+      "hallucinations_per_case": null
+     },
+     "walking": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "eliminating": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "feeding": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "dressing": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "mental": {
+      "accuracy": 1.0,
+      "precision": 0.8214285714285714,
+      "f1": 0.9019607843137255,
+      "hallucination_rate": 0.21739130434782608,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 23,
+      "hallucinations_per_case": null
+     },
+     "cumulative": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 6,
+      "hallucinations_per_case": null
+     },
+     "lst": {
+      "accuracy": null,
+      "precision": null,
+      "f1": 0.0,
+      "hallucination_rate": 0.0,
+      "omission_rate": null,
+      "wrong_rate": null,
+      "n_gold": 0,
+      "hallucinations_per_case": null
+     },
+     "cert": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "f1": 1.0,
+      "hallucination_rate": null,
+      "omission_rate": 0.0,
+      "wrong_rate": 0.0,
+      "n_gold": 2,
+      "hallucinations_per_case": null
+     }
+    },
+    "section_detection": {
+     "precision": 1.0,
+     "recall": 1.0
+    },
+    "grounding": {
+     "grounded_correct": 28,
+     "ungrounded_correct": 13,
+     "ungrounded_incorrect": 5,
+     "flag_precision": 0.2777777777777778,
+     "flag_recall": 1.0
+    },
+    "latency_ms": {
+     "mean": 315353.0,
+     "p50": 315353,
+     "max": 315353
+    },
+    "tokens_per_case": {
+     "prompt": 10012.0,
+     "output": 3173.0
+    },
+    "schema_errors": 0,
+    "counts": {
+     "true_empty": 117,
+     "correct": 41,
+     "hallucinated": 5
+    }
+   },
+   "cases": [
+    {
+     "counts": {
+      "true_empty": 117,
+      "correct": 41,
+      "hallucinated": 5
+     },
+     "errors": {
+      "hallucinated": [
+       "mental_q5_adaptive_adapt_to_change",
+       "mental_q5_concentration_short_term_memory",
+       "mental_q5_judgment_own_treatment",
+       "mental_q5_memory_important_info",
+       "mental_q5_regulation_mood"
+      ]
+     },
+     "by_kind": {
+      "text": {
+       "true_empty": 25,
+       "correct": 5
+      },
+      "enum": {
+       "true_empty": 47,
+       "correct": 28,
+       "hallucinated": 5
+      },
+      "year": {
+       "true_empty": 18,
+       "correct": 4
+      },
+      "bool": {
+       "true_empty": 25,
+       "correct": 4
+      },
+      "number": {
+       "true_empty": 2
+      }
+     },
+     "by_section": {
+      "vision": {
+       "true_empty": 14
+      },
+      "speaking": {
+       "true_empty": 10
+      },
+      "hearing": {
+       "correct": 10,
+       "true_empty": 1
+      },
+      "walking": {
+       "true_empty": 10
+      },
+      "eliminating": {
+       "true_empty": 10
+      },
+      "feeding": {
+       "true_empty": 10
+      },
+      "dressing": {
+       "true_empty": 10
+      },
+      "mental": {
+       "correct": 23,
+       "true_empty": 18,
+       "hallucinated": 5
+      },
+      "cumulative": {
+       "true_empty": 7,
+       "correct": 6
+      },
+      "lst": {
+       "true_empty": 27
+      },
+      "cert": {
+       "correct": 2
+      }
+     },
+     "sections": {
+      "gold": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "pred": [
+       "cert",
+       "cumulative",
+       "hearing",
+       "mental"
+      ],
+      "tp": 4,
+      "fp": 0,
+      "fn": 0
+     },
+     "grounding": {
+      "grounded_correct": 28,
+      "ungrounded_correct": 13,
+      "ungrounded_incorrect": 5
+     },
+     "stats": {
+      "ms": 315353,
+      "prompt_tokens": 10012,
+      "output_tokens": 3173,
+      "errors": 0
+     },
+     "case_id": "hand-000",
+     "style": "structured"
+    }
+   ]
+  }
+ }
+}

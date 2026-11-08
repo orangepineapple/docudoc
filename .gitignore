@@ -1,0 +1,23 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Node
+node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+
+# Scratch outputs
+/filled.pdf
+/test_filled.pdf
+/out/
+eval/results/raw/
+
+# Third-party reference code (not part of this project)
+example/

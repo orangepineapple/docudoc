@@ -1,0 +1,12 @@
+Extracting sections...
+  [speaking] skipped — not relevant
+  [feeding] skipped — not relevant
+  [hearing] filled 11 fields
+  [dressing] skipped — not relevant
+  [vision] skipped — not relevant
+  [cert] filled 3 fields
+  [mental] filled 44 fields
+  [lst] skipped — not relevant
+  [eliminating] skipped — not relevant
+  [walking] skipped — not relevant
+  [cumulative] filled 9 fields

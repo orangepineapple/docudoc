@@ -1,0 +1,11 @@
+{
+  "cert_year_from": "2018",
+  "cert_year_to": "",
+  "cert_q2_medical_info_on_file": "/0",
+  "cert_practitioner_type": "/0",
+  "cert_practitioner_name": "",
+  "cert_license_number": "",
+  "cert_telephone": "",
+  "cert_date": "",
+  "cert_address": ""
+}

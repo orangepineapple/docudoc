@@ -1,0 +1,22 @@
+{
+  "cumulative_doctor_initial": "MD",
+  "cumulative_nurse_initial": "",
+  "cumulative_therapist_initial": "",
+  "cumulative_q1_vision": false,
+  "cumulative_q1_speaking": false,
+  "cumulative_q1_hearing": true,
+  "cumulative_q1_walking": false,
+  "cumulative_q1_eliminating": false,
+  "cumulative_q1_feeding": false,
+  "cumulative_q1_dressing": false,
+  "cumulative_q1_mental_functions": true,
+  "cumulative_q2_examples": "Hearing impairment: profound and severe hearing loss, constant repetition, heavy reliance on lip-reading. Mental functions: severe limitations in adaptive functioning, attention, concentration, goal-setting, and regulation of behavior.",
+  "cumulative_q3_exist_together": "/0",
+  "cumulative_q4_equivalent_to_marked": "/0",
+  "cumulative_q5_year_began": "2016",
+  "cumulative_q6_lasted_12mo": "/0",
+  "cumulative_q7_improved_yes": false,
+  "cumulative_q7_improved_no": true,
+  "cumulative_q7_improved_unsure": false,
+  "cumulative_q7_year": ""
+}

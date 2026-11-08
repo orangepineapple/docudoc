@@ -1,0 +1,18 @@
+{
+  "hearing_doctor_initial": "MD",
+  "hearing_nurse_initial": "",
+  "hearing_audiologist_initial": "",
+  "hearing_q1_conditions": "Bilateral sensorineural hearing loss following a viral infection (2018)",
+  "hearing_q2_left_ear": "profound: 91dB+",
+  "hearing_q2_right_ear": "severe: 71-90dB",
+  "hearing_q3_devices_therapy": "Bilateral behind-the-ear hearing aids",
+  "hearing_q4_examples": "Requires repetition constantly, relies heavily on lip-reading, cannot understand speech in any environment with background noise, even in quiet settings with a familiar person, cannot understand verbal communication without lip-reading",
+  "hearing_q5_unable_or_inordinate": "/0",
+  "hearing_q6_all_or_substantially": "/0",
+  "hearing_q7_year_impaired": "2018",
+  "hearing_q8_lasted_12mo": "/1",
+  "hearing_q9_improved_yes": false,
+  "hearing_q9_improved_no": true,
+  "hearing_q9_improved_unsure": false,
+  "hearing_q9_year": ""
+}
