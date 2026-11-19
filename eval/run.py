@@ -64,7 +64,7 @@ async def main():
     ap.add_argument("--cases", nargs="+", default=[str(ROOT / "cases" / "hand.jsonl")])
     ap.add_argument("--split", default=None, help="dev | test (default: all)")
     ap.add_argument("--models", nargs="+", default=["qwen2.5:7b"])
-    ap.add_argument("--variants", nargs="+", default=["v2_evidence"], choices=VARIANTS)
+    ap.add_argument("--variants", nargs="+", default=["v3_select"], choices=VARIANTS)
     ap.add_argument("--no-route", action="store_true")
     ap.add_argument("--think", action="store_true")
     ap.add_argument("--drop-ungrounded", action="store_true")

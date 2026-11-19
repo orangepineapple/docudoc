@@ -69,7 +69,7 @@ class ExtractRequest(BaseModel):
     form_id: str = "t2201"
     notes: str = Field(min_length=1, max_length=50_000)
     model: str = DEFAULT_MODEL
-    variant: str = "v2_evidence"
+    variant: str = "v3_select"
     route: bool = True
 
 

@@ -1,6 +1,6 @@
 PY := venv/bin/python
 
-.PHONY: setup dev api ui test eval generate
+.PHONY: setup dev api ui test eval generate grid-check
 
 setup:            ## create venv, install backend + frontend deps
 	python3 -m venv venv
@@ -28,4 +28,7 @@ generate:         ## synthetic eval cases (see eval/generate.py)
 
 eval:             ## score configs on the dev split (see eval/run.py)
 	$(PY) eval/run.py --cases eval/cases/hand.jsonl eval/cases/synthetic.jsonl --split dev --run dev \
-		--models qwen2.5:7b --variants v0_baseline v1_schema v2_evidence
+		--models qwen2.5:7b --variants v0_baseline v1_schema v2_evidence v3_select
+
+grid-check:       ## regression gate for grid hallucination (needs `ollama serve`, ~30 min)
+	$(PY) eval/grid_copy.py --variants v3_select --no-cache --max-copied 0.5

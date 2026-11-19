@@ -1,5 +1,5 @@
 """
-python -m formfiller extract notes.txt [--model qwen2.5:7b] [--variant v2_evidence] [--json out.json]
+python -m formfiller extract notes.txt [--model qwen2.5:7b] [--variant v3_select] [--json out.json]
 python -m formfiller fill notes.txt -o filled.pdf --patient "Jane Doe" [--initials AB]
 """
 from __future__ import annotations
@@ -56,7 +56,7 @@ def main() -> None:
     p.add_argument("notes", help="notes file, or - for stdin")
     p.add_argument("--form", default="t2201")
     p.add_argument("--model", default="qwen2.5:7b")
-    p.add_argument("--variant", default="v2_evidence", choices=VARIANTS)
+    p.add_argument("--variant", default="v3_select", choices=VARIANTS)
     p.add_argument("--no-route", action="store_true")
     p.add_argument("--think", action="store_true")
     p.add_argument("--json", help="also write the full result as JSON")

@@ -36,7 +36,7 @@ VARIANTS: list[str] = ["v0_baseline", "v1_schema", "v2_evidence", "v3_select"]
 @dataclass
 class PipelineConfig:
     model: str = "qwen2.5:7b"
-    variant: Variant = "v2_evidence"
+    variant: Variant = "v3_select"
     route: bool = True
     think: bool = False
     num_ctx: int = 8192
@@ -158,6 +158,41 @@ Rules:
 
 # ── Pipeline ─────────────────────────────────────────────────────────────────
 
+async def extract_chunk(form: FormSpec, chunk: Chunk, notes: str, variant: str, call) -> tuple[dict, dict, list[str]]:
+    """One chunk through v1/v2/v3. `call(messages, schema)` returns a ChatResult.
+
+    Returns (values, meta, errors); meta holds the raw evidence quote per key.
+    """
+    values: dict = {}
+    meta: dict = {}
+    with_ev = variant in ("v2_evidence", "v3_select")
+    if variant == "v3_select":
+        for key in chunk.keys:
+            values[key] = form.fields[key].empty_value()
+        try:
+            sel = await call(select_messages(form, chunk, notes), schema.select_schema(chunk))
+            picked = set(sel.json().get("answered", []))
+        except (OllamaError, json.JSONDecodeError) as e:
+            return values, meta, [f"{chunk.id} select: {e}"]
+        keys = tuple(k for k in chunk.keys if k in picked)
+        if not keys:
+            return values, meta, []
+        chunk = Chunk(chunk.id, chunk.section, keys)
+    try:
+        r = await call(chunk_messages(form, chunk, notes, with_ev), schema.chunk_schema(form, chunk, with_ev))
+        data = r.json()
+    except (OllamaError, json.JSONDecodeError) as e:
+        return values, meta, [f"{chunk.id}: {e}"]
+    for key in chunk.keys:
+        item = data.get(key)
+        if with_ev and isinstance(item, dict):
+            values[key] = item.get("value")
+            meta[key] = {"evidence": item.get("evidence") or ""}
+        else:
+            values[key] = item
+    return values, meta, []
+
+
 async def run(form: FormSpec, notes: str, cfg: PipelineConfig, llm: Ollama) -> AsyncIterator[dict]:
     """Yields progress events; the last one is {"type": "done", "result": {...}}."""
     t0 = time.monotonic()
@@ -205,35 +240,11 @@ async def run(form: FormSpec, notes: str, cfg: PipelineConfig, llm: Ollama) -> A
             except OllamaError as e:
                 out["errors"].append(str(e))
         else:
-            with_ev = cfg.variant in ("v2_evidence", "v3_select")
             for chunk in form.chunks_for(sid):
-                if cfg.variant == "v3_select":
-                    for key in chunk.keys:
-                        out["values"][key] = form.fields[key].empty_value()
-                    try:
-                        sel = await call(select_messages(form, chunk, notes), schema.select_schema(chunk))
-                        picked = set(sel.json().get("answered", []))
-                    except (OllamaError, json.JSONDecodeError) as e:
-                        out["errors"].append(f"{chunk.id} select: {e}")
-                        continue
-                    keys = tuple(k for k in chunk.keys if k in picked)
-                    if not keys:
-                        continue
-                    chunk = Chunk(chunk.id, chunk.section, keys)
-                try:
-                    r = await call(chunk_messages(form, chunk, notes, with_ev),
-                                   schema.chunk_schema(form, chunk, with_ev))
-                    data = r.json()
-                except (OllamaError, json.JSONDecodeError) as e:
-                    out["errors"].append(f"{chunk.id}: {e}")
-                    continue
-                for key in chunk.keys:
-                    item = data.get(key)
-                    if with_ev and isinstance(item, dict):
-                        out["values"][key] = item.get("value")
-                        out["meta"][key] = {"evidence": item.get("evidence") or ""}
-                    else:
-                        out["values"][key] = item
+                v, m, errs = await extract_chunk(form, chunk, notes, cfg.variant, call)
+                out["values"].update(v)
+                out["meta"].update(m)
+                out["errors"].extend(errs)
         out["ms"] = int((time.monotonic() - start) * 1000)
         return out
 

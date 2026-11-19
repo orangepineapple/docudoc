@@ -1,0 +1,421 @@
+{
+ "qwen2.5:7b|v1_schema": {
+  "n_cases": 21,
+  "counts": {
+   "copied": 217,
+   "correct": 200,
+   "other": 21,
+   "true_empty": 98,
+   "fabricated": 52
+  },
+  "rated_accuracy": 1.0,
+  "halluc_per_case": 13.80952380952381,
+  "copied_per_case": 10.333333333333334,
+  "copy_share": 0.7482758620689656,
+  "flip_pairs": 17,
+  "flip_changed": 10,
+  "flip_followed": 9,
+  "dropped": 10,
+  "dropped_filled": 8,
+  "follow_detail": [
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "severe_limitations",
+    "flip": "some_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "severe_limitations",
+    "flip": "some_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "severe_limitations",
+    "flip": "some_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_attention_danger_awareness",
+    "base": "severe_limitations",
+    "flip": "not_mentioned",
+    "changed": true,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_concentration_short_term_memory",
+    "base": "some_limitations",
+    "flip": "some_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_clothing",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_judgment_own_treatment",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_judgment_exploitation_risk",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_memory_personal_info",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_memory_important_info",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "severe_limitations",
+    "flip": "some_limitations",
+    "changed": true,
+    "followed": true
+   }
+  ]
+ },
+ "qwen2.5:7b|v2_evidence": {
+  "n_cases": 21,
+  "counts": {
+   "copied": 75,
+   "true_empty": 294,
+   "correct": 198,
+   "other": 18,
+   "wrong": 2,
+   "fabricated": 1
+  },
+  "rated_accuracy": 0.99,
+  "halluc_per_case": 4.476190476190476,
+  "copied_per_case": 3.5714285714285716,
+  "copy_share": 0.7978723404255319,
+  "flip_pairs": 17,
+  "flip_changed": 4,
+  "flip_followed": 1,
+  "dropped": 10,
+  "dropped_filled": 3,
+  "follow_detail": [
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_attention_danger_awareness",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_concentration_short_term_memory",
+    "base": "some_limitations",
+    "flip": "some_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_clothing",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_own_treatment",
+    "base": "some_limitations",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": true
+   },
+   {
+    "item": "mental_q5_judgment_exploitation_risk",
+    "base": "not_mentioned",
+    "flip": "severe_limitations",
+    "changed": true,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_memory_personal_info",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_memory_important_info",
+    "base": "some_limitations",
+    "flip": "not_mentioned",
+    "changed": true,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "severe_limitations",
+    "flip": "severe_limitations",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "severe_limitations",
+    "flip": "not_mentioned",
+    "changed": true,
+    "followed": false
+   }
+  ]
+ },
+ "qwen2.5:7b|v3_select": {
+  "n_cases": 21,
+  "counts": {
+   "true_empty": 388,
+   "correct": 198,
+   "omitted": 2
+  },
+  "rated_accuracy": 0.99,
+  "halluc_per_case": 0.0,
+  "copied_per_case": 0.0,
+  "copy_share": null,
+  "flip_pairs": 17,
+  "flip_changed": 0,
+  "flip_followed": 0,
+  "dropped": 10,
+  "dropped_filled": 0,
+  "follow_detail": [
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_adapt_to_change",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_express_needs",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_transactions",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_adaptive_hygiene",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_attention_danger_awareness",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_concentration_short_term_memory",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_clothing",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_own_treatment",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_judgment_exploitation_risk",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_memory_personal_info",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_memory_important_info",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   },
+   {
+    "item": "mental_q5_regulation_mood",
+    "base": "not_mentioned",
+    "flip": "not_mentioned",
+    "changed": false,
+    "followed": false
+   }
+  ]
+ }
+}

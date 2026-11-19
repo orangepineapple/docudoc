@@ -25,7 +25,7 @@ export function Workspace({ form }: { form: FormSchema }) {
   const [samples, setSamples] = useState<Sample[]>([])
   const [models, setModels] = useState<{ ok: boolean; error?: string; names: string[] }>({ ok: true, names: [] })
   const [model, setModel] = useState('qwen2.5:7b')
-  const [variant, setVariant] = useState('v2_evidence')
+  const [variant, setVariant] = useState('v3_select')
   const [notes, setNotes] = useState('')
   const [values, setValues] = useState<Record<string, Value>>({})
   const [meta, setMeta] = useState<Record<string, FieldMeta>>({})
