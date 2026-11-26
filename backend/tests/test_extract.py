@@ -2,7 +2,7 @@
 import asyncio
 import json
 
-from formfiller.core.extract import PipelineConfig, extract
+from formfiller.core.extract import VARIANTS, PipelineConfig, extract
 from formfiller.forms import get_form
 from formfiller.llm.ollama import ChatResult
 
@@ -21,8 +21,6 @@ class FakeLLM:
         props = (schema or {}).get("properties", {})
         if "sections" in props:
             body = {"sections": ["hearing"]}
-        elif schema is None:  # v0 baseline: free-form JSON with raw codes
-            body = {"hearing_q8_lasted_12mo": "/0", "hearing_q9_improved_no": True} if "HEARING" in messages[0]["content"] else {}
         else:
             body = {}
             for key, p in props.items():
@@ -56,11 +54,17 @@ def test_v2_drop_ungrounded():
     assert r["values"]["hearing_q8_lasted_12mo"] == "yes"
 
 
-def test_v0_baseline_decodes_raw_codes():
-    r = run(PipelineConfig(variant="v0_baseline"))
-    assert r["values"]["hearing_q8_lasted_12mo"] == "yes"
-    assert r["values"]["hearing_q9_improved"] == "no"
-    assert len(r["routed"]) == len(FORM.sections)  # baseline doesn't route
+def test_variants_are_the_typed_literal():
+    assert VARIANTS == ("v1_schema", "v2_evidence", "v3_select")
+
+
+def test_api_rejects_unknown_variant():
+    from fastapi.testclient import TestClient
+
+    from formfiller.api.main import app
+
+    r = TestClient(app).post("/api/extract", json={"notes": NOTES, "variant": "v0_baseline"})
+    assert r.status_code == 422
 
 
 def test_v3_select_only_fills_selected():

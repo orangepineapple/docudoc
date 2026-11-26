@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VARIANT = {"v0_baseline": "prototype baseline", "v1_schema": "schema + enums",
+VARIANT = {"v0_baseline": "prototype baseline (retired)", "v1_schema": "schema + enums",
            "v2_evidence": "schema + evidence", "v3_select": "select, then fill"}
 
 

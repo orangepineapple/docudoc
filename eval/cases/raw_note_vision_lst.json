@@ -1,0 +1,123 @@
+{
+  "id": "raw_note_vision_lst",
+  "source": "raw_note",
+  "style": "letter",
+  "verified": false,
+  "split": "dev",
+  "sections": ["vision", "lst", "cert"],
+  "covers": "Vision acuity/field numbers per eye, blindness criteria, life-sustaining therapy (type 1 diabetes on an insulin pump, times and hours per week).",
+  "notes": [
+    "Re: Disability Tax Credit - supporting medical information",
+    "",
+    "I have followed this patient in my clinic since 2012. They have type 1 diabetes mellitus, diagnosed in 2009,",
+    "complicated by proliferative diabetic retinopathy diagnosed in 2016.",
+    "",
+    "VISION",
+    "Despite panretinal laser photocoagulation and intravitreal anti-VEGF injections, vision has continued to deteriorate.",
+    "Best corrected visual acuity, measured on a Snellen chart at the most recent visit:",
+    "  Right eye: 20/400",
+    "  Left eye: 20/200",
+    "Visual field: 15 degrees in the right eye and 20 degrees in the left eye.",
+    "The patient meets the criteria for blindness in both eyes.",
+    "Vision has been impaired to this degree since 2019 and this has lasted more than 12 months.",
+    "Vision is not expected to improve.",
+    "",
+    "LIFE-SUSTAINING THERAPY",
+    "Type 1 diabetes was diagnosed prior to 2021.",
+    "Insulin is delivered by an insulin pump, with continuous glucose monitoring.",
+    "Every day the patient checks blood glucose, counts carbohydrates and adjusts insulin doses, at least 4 times per day",
+    "(28 times per week).",
+    "Time spent on these activities averages 16 hours per week.",
+    "This therapy supports a vital function (regulation of blood glucose).",
+    "Insulin therapy has been required since 2009 and has lasted more than 12 months. It is lifelong and will not improve.",
+    "",
+    "I have been this patient's physician from 2012 to present. Their medical records are on file in this clinic."
+  ],
+  "gold": {
+    "vision_q1_conditions": "Proliferative diabetic retinopathy (2016)",
+    "vision_q2_right_measure": "snellen",
+    "vision_q2_right_acuity_num1": "20",
+    "vision_q2_right_acuity_num2": "400",
+    "vision_q2_right_field_degrees": "15",
+    "vision_q2_left_measure": "snellen",
+    "vision_q2_left_acuity_num1": "20",
+    "vision_q2_left_acuity_num2": "200",
+    "vision_q2_left_field_degrees": "20",
+    "vision_q3_meets_criteria": "yes",
+    "vision_q4_year_impaired": "2019",
+    "vision_q5_lasted_12mo": "yes",
+    "vision_q6_improved": "no",
+    "lst_q1_type1_diabetes_timing": "prior_to_2021",
+    "lst_q1_year_diagnosed": "*",
+    "lst_q2_therapy_insulin_pump": true,
+    "lst_q2_condition_type1_diabetes": true,
+    "lst_q3_eligible_activities": "Checking blood glucose, counting carbohydrates, adjusting insulin doses",
+    "lst_q4_supports_vital_function": "yes",
+    "lst_q5_times_per_week": "28",
+    "lst_q6_hours_per_week": "16",
+    "lst_q7_year_began": "2009",
+    "lst_q8_lasted_12mo": "yes",
+    "lst_q9_improved": "no",
+    "cert_year_from": "2012",
+    "cert_year_to": "*",
+    "cert_q2_medical_info_on_file": "yes"
+  },
+  "variations": [
+    {
+      "id": "drop-lst-hours",
+      "kind": "drop",
+      "tests": "A number that is removed must not be guessed (hours per week).",
+      "edits": [{"replace": ["Time spent on these activities averages 16 hours per week."], "with": []}],
+      "gold": {"lst_q6_hours_per_week": null}
+    },
+    {
+      "id": "flip-left-count-fingers",
+      "kind": "flip",
+      "tests": "Measure method changes from Snellen to count fingers; the left acuity numbers must disappear.",
+      "edits": [{"replace": ["  Left eye: 20/200"], "with": ["  Left eye: count fingers only"]}],
+      "gold": {"vision_q2_left_measure": "count_fingers", "vision_q2_left_acuity_num1": null, "vision_q2_left_acuity_num2": null}
+    },
+    {
+      "id": "flip-vision-improves",
+      "kind": "flip",
+      "tests": "Improvement 'no' becomes 'yes' with a year (the improvement-year rule).",
+      "edits": [{"replace": ["Vision is not expected to improve."], "with": ["Vision is expected to improve after a planned vitrectomy, by 2027."]}],
+      "gold": {"vision_q6_improved": "yes", "vision_q6_year": "2027"}
+    },
+    {
+      "id": "flip-pump-to-injections",
+      "kind": "flip",
+      "tests": "Checkbox moves from insulin pump to insulin injections.",
+      "edits": [{"replace": ["Insulin is delivered by an insulin pump, with continuous glucose monitoring."],
+                 "with": ["Insulin is given by multiple daily injections with a pen, with continuous glucose monitoring."]}],
+      "gold": {"lst_q2_therapy_insulin_pump": null, "lst_q2_therapy_insulin_injections": true}
+    },
+    {
+      "id": "drop-vision-section",
+      "kind": "drop_section",
+      "tests": "With the whole vision block removed, no vision field may be filled; the diagnosis is still mentioned, so conditions is unscored.",
+      "sections": ["lst", "cert"],
+      "edits": [{"replace": [
+        "VISION",
+        "Despite panretinal laser photocoagulation and intravitreal anti-VEGF injections, vision has continued to deteriorate.",
+        "Best corrected visual acuity, measured on a Snellen chart at the most recent visit:",
+        "  Right eye: 20/400",
+        "  Left eye: 20/200",
+        "Visual field: 15 degrees in the right eye and 20 degrees in the left eye.",
+        "The patient meets the criteria for blindness in both eyes.",
+        "Vision has been impaired to this degree since 2019 and this has lasted more than 12 months.",
+        "Vision is not expected to improve.",
+        ""
+      ], "with": []}],
+      "gold": {"vision_*": null, "vision_q1_conditions": "*"}
+    },
+    {
+      "id": "distractor-family",
+      "kind": "distractor",
+      "tests": "Family history must not be filled in for the patient (no type 2 diabetes, no extra vision condition).",
+      "edits": [{"after": "complicated by proliferative diabetic retinopathy diagnosed in 2016.",
+                 "insert": ["Family history: the patient's father has type 2 diabetes and glaucoma and is on insulin injections."]}],
+      "gold": {}
+    }
+  ]
+}

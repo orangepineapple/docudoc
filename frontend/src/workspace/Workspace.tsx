@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
-import { api, type ExtractResult, type FieldMeta, type FormSchema, type Issue, type Sample, type SectionStatus, type Value } from '../api'
+import { api, VARIANT_LABELS, type ExtractResult, type FieldMeta, type FormSchema, type Issue, type Sample, type SectionStatus, type Value, type Variant } from '../api'
 import { Spinner } from '../ui'
 import { btn, cx } from '../styles'
 import { NotesPane } from './NotesPane'
@@ -14,18 +14,11 @@ export interface RunState {
   startedAt?: number
 }
 
-const VARIANT_LABELS: Record<string, string> = {
-  v3_select: 'Select, then fill',
-  v2_evidence: 'Evidence-grounded',
-  v1_schema: 'Schema only',
-  v0_baseline: 'Prototype baseline',
-}
-
 export function Workspace({ form }: { form: FormSchema }) {
   const [samples, setSamples] = useState<Sample[]>([])
   const [models, setModels] = useState<{ ok: boolean; error?: string; names: string[] }>({ ok: true, names: [] })
   const [model, setModel] = useState('qwen2.5:7b')
-  const [variant, setVariant] = useState('v2_evidence')
+  const [variant, setVariant] = useState<Variant>('v3_select')
   const [notes, setNotes] = useState('')
   const [values, setValues] = useState<Record<string, Value>>({})
   const [meta, setMeta] = useState<Record<string, FieldMeta>>({})
@@ -122,8 +115,8 @@ export function Workspace({ form }: { form: FormSchema }) {
         </label>
         <label className="flex items-center gap-1.5 text-xs text-muted">
           Pipeline
-          <select className="rounded-md border border-line bg-panel px-2 py-1.5 text-sm text-ink" value={variant} onChange={(e) => setVariant(e.target.value)} disabled={busy}>
-            {form.variants.slice().reverse().map((v) => <option key={v} value={v}>{VARIANT_LABELS[v] ?? v}</option>)}
+          <select className="rounded-md border border-line bg-panel px-2 py-1.5 text-sm text-ink" value={variant} onChange={(e) => setVariant(e.target.value as Variant)} disabled={busy}>
+            {form.variants.slice().reverse().map((v) => <option key={v} value={v}>{VARIANT_LABELS[v]}</option>)}
           </select>
         </label>
         <RunStatus run={run} />
