@@ -1,0 +1,96 @@
+{
+  "id": "raw_note_spina_bifida",
+  "source": "raw_note",
+  "style": "shorthand",
+  "verified": false,
+  "split": "dev",
+  "sections": ["eliminating", "walking", "cert"],
+  "covers": "Eliminating (bladder and bowel) and walking in clinic shorthand with abbreviations; condition present since birth.",
+  "notes": [
+    "DTC note. Pt known to me since 2015.",
+    "Dx: spina bifida (myelomeningocele), congenital, present since birth (1998).",
+    "",
+    "Bladder: neurogenic bladder. Intermittent self-cath q4h, 6x/day. Oxybutynin daily.",
+    "Bowel: neurogenic bowel. Daily bowel routine w/ transanal irrigation, ~1.5 h/day.",
+    "Elimination takes >3x normal time, all/substantially all of the time. Since birth. Lifelong, no improvement expected.",
+    "",
+    "Mobility: manual wheelchair full-time. Unable to walk 100 m even w/ devices. All of the time. Since birth, permanent.",
+    "No meds for mobility.",
+    "",
+    "Impairments lasted >12 mo.",
+    "Records on file: yes."
+  ],
+  "gold": {
+    "eliminating_q1_conditions": "Spina bifida (myelomeningocele) with neurogenic bladder and bowel (1998)",
+    "eliminating_q2_takes_medication": "yes",
+    "eliminating_q3_devices_therapy": "Intermittent self-catheterization, transanal irrigation, oxybutynin",
+    "eliminating_q4_examples": "Self-catheterizes 6 times a day; bowel routine takes about 1.5 hours a day",
+    "eliminating_q5_unable_or_inordinate": "yes",
+    "eliminating_q6_all_or_substantially": "yes",
+    "eliminating_q7_year_impaired": "1998",
+    "eliminating_q8_lasted_12mo": "yes",
+    "eliminating_q9_improved": "no",
+    "walking_q1_conditions": "Spina bifida (myelomeningocele) (1998)",
+    "walking_q2_takes_medication": "no",
+    "walking_q3_devices_therapy": "Manual wheelchair",
+    "walking_q4_examples": "Uses a manual wheelchair full-time; unable to walk 100 m even with devices",
+    "walking_q5_unable_or_inordinate": "yes",
+    "walking_q6_all_or_substantially": "yes",
+    "walking_q7_year_impaired": "1998",
+    "walking_q8_lasted_12mo": "yes",
+    "walking_q9_improved": "no",
+    "cert_year_from": "2015",
+    "cert_year_to": "*",
+    "cert_q2_medical_info_on_file": "yes"
+  },
+  "variations": [
+    {
+      "id": "flip-crutches",
+      "kind": "flip",
+      "tests": "Device changes from wheelchair to crutches; still a marked restriction (inordinate time).",
+      "edits": [{"replace": ["Mobility: manual wheelchair full-time. Unable to walk 100 m even w/ devices. All of the time. Since birth, permanent."],
+                 "with": ["Mobility: walks w/ bilateral forearm crutches. 100 m takes ~4x normal time. All of the time. Since birth, permanent."]}],
+      "gold": {"walking_q3_devices_therapy": "Bilateral forearm crutches",
+               "walking_q4_examples": "Walks with forearm crutches; 100 m takes about 4 times the normal time"}
+    },
+    {
+      "id": "drop-mobility",
+      "kind": "drop_section",
+      "tests": "With the mobility lines removed, walking must stay empty; spina bifida is still the diagnosis, so conditions is unscored.",
+      "sections": ["eliminating", "cert"],
+      "edits": [{"replace": [
+        "Mobility: manual wheelchair full-time. Unable to walk 100 m even w/ devices. All of the time. Since birth, permanent.",
+        "No meds for mobility.",
+        ""
+      ], "with": []}],
+      "gold": {"walking_*": null, "walking_q1_conditions": "*"}
+    },
+    {
+      "id": "negate-bladder-medication",
+      "kind": "negate",
+      "tests": "Stopped medication: eliminating Q2 becomes 'no' and oxybutynin leaves the therapy list.",
+      "edits": [{"replace": ["Bladder: neurogenic bladder. Intermittent self-cath q4h, 6x/day. Oxybutynin daily."],
+                 "with": ["Bladder: neurogenic bladder. Intermittent self-cath q4h, 6x/day. Oxybutynin stopped 2020 (side effects); no current meds."]}],
+      "gold": {"eliminating_q2_takes_medication": "no",
+               "eliminating_q3_devices_therapy": "Intermittent self-catheterization, transanal irrigation"}
+    },
+    {
+      "id": "flip-birth-year",
+      "kind": "flip",
+      "tests": "One year feeds both sections' 'year impaired'; both must follow it.",
+      "edits": [{"replace": ["Dx: spina bifida (myelomeningocele), congenital, present since birth (1998)."],
+                 "with": ["Dx: spina bifida (myelomeningocele), congenital, present since birth (2001)."]}],
+      "gold": {"eliminating_q7_year_impaired": "2001", "walking_q7_year_impaired": "2001",
+               "eliminating_q1_conditions": "Spina bifida (myelomeningocele) with neurogenic bladder and bowel (2001)",
+               "walking_q1_conditions": "Spina bifida (myelomeningocele) (2001)"}
+    },
+    {
+      "id": "distractor-sibling-ostomy",
+      "kind": "distractor",
+      "tests": "A sibling's ostomy must not be added to the patient's devices.",
+      "edits": [{"after": "Dx: spina bifida (myelomeningocele), congenital, present since birth (1998).",
+                 "insert": ["FHx: brother has Crohn's disease w/ ileostomy."]}],
+      "gold": {}
+    }
+  ]
+}

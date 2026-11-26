@@ -1,15 +1,14 @@
 """
 Notes -> logical form values.
 
-Pipeline (v1/v2):
+Pipeline:
   1. Route: one call decides which sections the notes discuss.
   2. Extract: one constrained-JSON call per chunk of a routed section.
   3. Ground: evidence quotes are located in the notes.
   4. Validate: deterministic form rules.
 
-Variants:
-  v0_baseline  The original prototype: free-form JSON with raw PDF codes,
-               every section, "{}" when irrelevant. Kept for comparison.
+Variants (the model only ever sees readable enum values; core/codec.py maps
+them to PDF option codes):
   v1_schema    Readable enums + not_mentioned, JSON Schema constrained decoding.
   v2_evidence  v1 + an evidence quote before every value.
   v3_select    Two steps per chunk: the model first lists which fields the
@@ -20,17 +19,16 @@ from __future__ import annotations
 
 import asyncio
 import json
-import re
 import time
 from dataclasses import asdict, dataclass
-from typing import AsyncIterator, Literal
+from typing import AsyncIterator, Literal, get_args
 
 from ..llm.ollama import Ollama, OllamaError
 from . import codec, evidence, schema
 from .form import NOT_MENTIONED, Chunk, FormSpec
 
-Variant = Literal["v0_baseline", "v1_schema", "v2_evidence", "v3_select"]
-VARIANTS: list[str] = ["v0_baseline", "v1_schema", "v2_evidence", "v3_select"]
+Variant = Literal["v1_schema", "v2_evidence", "v3_select"]
+VARIANTS: tuple[Variant, ...] = get_args(Variant)
 
 
 @dataclass
@@ -46,7 +44,7 @@ class PipelineConfig:
     @property
     def name(self) -> str:
         bits = [self.model, self.variant]
-        if self.variant != "v0_baseline" and not self.route:
+        if not self.route:
             bits.append("noroute")
         if self.think:
             bits.append("think")
@@ -57,7 +55,7 @@ class PipelineConfig:
 
 # ── Prompts ──────────────────────────────────────────────────────────────────
 
-def router_messages(form: FormSpec, notes: str) -> list[dict]:
+def detect_relevant_sections(form: FormSpec, notes: str) -> list[dict]:
     listing = "\n".join(f'- "{s.id}": {s.label} — {s.description}' for s in form.sections)
     system = f"""You triage clinical notes for the {form.title}.
 List every section of the form that the notes contain information for.
@@ -73,7 +71,7 @@ Respond with JSON: {{"sections": [...]}}"""
             {"role": "user", "content": f"Clinical notes:\n<<<\n{notes}\n>>>"}]
 
 
-def chunk_messages(form: FormSpec, chunk: Chunk, notes: str, with_evidence: bool) -> list[dict]:
+def quote_and_fill_section(form: FormSpec, chunk: Chunk, notes: str, with_evidence: bool) -> list[dict]:
     section = next(s for s in form.sections if s.id == chunk.section)
     evidence_rule = """
 - For every field, FIRST copy into "evidence" the exact words from the notes that
@@ -116,50 +114,10 @@ Respond with JSON: {{"answered": [...]}}"""
             {"role": "user", "content": f"Clinical notes:\n<<<\n{notes}\n>>>"}]
 
 
-# ── v0: the original prototype prompt, verbatim ───────────────────────────────
-
-def _v0_section_schema(section_fields: dict) -> str:
-    lines = []
-    for key, field in section_fields.items():
-        if "patient_name" in key:
-            continue
-        desc, ftype = field["description"], field["type"]
-        if ftype == "radio_group":
-            opts = " | ".join(f'{v}="{label}"' for v, label in field["options"].items())
-            lines.append(f'  "{key}": ""  // {desc}. Options: {opts}')
-        elif ftype == "choice":
-            opts = " | ".join(f'"{o}"' for o in field["options"])
-            lines.append(f'  "{key}": ""  // {desc}. Options: {opts}')
-        elif ftype == "checkbox":
-            lines.append(f'  "{key}": false  // {desc}. Set true to check.')
-        else:
-            lines.append(f'  "{key}": ""  // {desc}')
-    return "{\n" + "\n".join(lines) + "\n}"
-
-
-def v0_messages(form: FormSpec, section_id: str, notes: str) -> list[dict]:
-    fields = {k: v for k, v in form.field_map.items() if k.startswith(section_id + "_")}
-    system = f"""You are filling the {section_id.upper()} section of a Canadian T2201
-Disability Tax Credit form based on doctor's notes.
-
-If the notes contain NO information about {section_id}, return an empty JSON object: {{}}
-
-Otherwise extract relevant information and return ONLY valid JSON matching this schema:
-{_v0_section_schema(fields)}
-
-Rules:
-- Return ONLY valid JSON. No explanation, no markdown, no code fences.
-- Leave fields as "" or false if not mentioned in the notes.
-- For radio fields use the option code exactly e.g. "/0" or "/1"
-- For year fields use 4-digit year only e.g. "2019"
-- For improvement questions check exactly ONE of _yes, _no, or _unsure"""
-    return [{"role": "system", "content": system}, {"role": "user", "content": notes}]
-
-
 # ── Pipeline ─────────────────────────────────────────────────────────────────
 
-async def extract_chunk(form: FormSpec, chunk: Chunk, notes: str, variant: str, call) -> tuple[dict, dict, list[str]]:
-    """One chunk through v1/v2/v3. `call(messages, schema)` returns a ChatResult.
+async def extract_chunk(form: FormSpec, chunk: Chunk, notes: str, variant: Variant, call) -> tuple[dict, dict, list[str]]:
+    """One chunk through the pipeline. `call(messages, schema)` returns a ChatResult.
 
     Returns (values, meta, errors); meta holds the raw evidence quote per key.
     """
@@ -179,7 +137,7 @@ async def extract_chunk(form: FormSpec, chunk: Chunk, notes: str, variant: str, 
             return values, meta, []
         chunk = Chunk(chunk.id, chunk.section, keys)
     try:
-        r = await call(chunk_messages(form, chunk, notes, with_ev), schema.chunk_schema(form, chunk, with_ev))
+        r = await call(quote_and_fill_section(form, chunk, notes, with_ev), schema.chunk_schema(form, chunk, with_ev))
         data = r.json()
     except (OllamaError, json.JSONDecodeError) as e:
         return values, meta, [f"{chunk.id}: {e}"]
@@ -212,9 +170,9 @@ async def run(form: FormSpec, notes: str, cfg: PipelineConfig, llm: Ollama) -> A
     # 1. Route
     all_ids = [s.id for s in form.sections]
     routed = all_ids
-    if cfg.variant != "v0_baseline" and cfg.route:
+    if cfg.route:
         try:
-            r = await call(router_messages(form, notes), schema.router_schema(form))
+            r = await call(detect_relevant_sections(form, notes), schema.router_schema(form))
             routed = [s for s in all_ids if s in set(r.json().get("sections", []))]
         except (OllamaError, json.JSONDecodeError) as e:
             yield {"type": "warning", "message": f"Routing failed, extracting all sections: {e}"}
@@ -227,24 +185,11 @@ async def run(form: FormSpec, notes: str, cfg: PipelineConfig, llm: Ollama) -> A
     async def do_section(sid: str) -> dict:
         start = time.monotonic()
         out: dict = {"section": sid, "values": {}, "meta": {}, "errors": []}
-        if cfg.variant == "v0_baseline":
-            try:
-                r = await call(v0_messages(form, sid, notes))
-                raw_text = re.sub(r"^```(?:json)?\s*|\s*```$", "", r.content.strip(), flags=re.MULTILINE).strip()
-                raw = json.loads(raw_text) if raw_text else {}
-                decoded = codec.from_raw(form, raw)
-                out["values"] = {k: v for k, v in decoded.items() if form.fields[k].section == sid}
-                out["empty"] = not raw
-            except json.JSONDecodeError as e:
-                out["errors"].append(f"invalid JSON: {e}")
-            except OllamaError as e:
-                out["errors"].append(str(e))
-        else:
-            for chunk in form.chunks_for(sid):
-                v, m, errs = await extract_chunk(form, chunk, notes, cfg.variant, call)
-                out["values"].update(v)
-                out["meta"].update(m)
-                out["errors"].extend(errs)
+        for chunk in form.chunks_for(sid):
+            v, m, errs = await extract_chunk(form, chunk, notes, cfg.variant, call)
+            out["values"].update(v)
+            out["meta"].update(m)
+            out["errors"].extend(errs)
         out["ms"] = int((time.monotonic() - start) * 1000)
         return out
 
@@ -264,7 +209,7 @@ async def run(form: FormSpec, notes: str, cfg: PipelineConfig, llm: Ollama) -> A
             field_meta[key] = meta
         values.update(section_values)
         status = "error" if res["errors"] and not section_values else (
-            "empty" if res.get("empty") or not any(v not in ("", False, NOT_MENTIONED) for v in section_values.values())
+            "empty" if not any(v not in ("", False, NOT_MENTIONED) for v in section_values.values())
             else "extracted")
         sections[sid] = {"status": status, "errors": res["errors"], "ms": res["ms"]}
         yield {"type": "section", "section": sid, "status": status, "errors": res["errors"],

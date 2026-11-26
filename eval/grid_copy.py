@@ -201,7 +201,7 @@ async def predict(form, chunk, notes: str, variant: str, model: str, llm) -> dic
 
 async def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--hand", default=str(ROOT / "cases" / "hand.jsonl"))
+    ap.add_argument("--raw-note", default=str(ROOT / "cases" / "raw_note.json"))
     ap.add_argument("--model", default="qwen2.5:7b")
     ap.add_argument("--variants", nargs="+", default=["v1_schema", "v2_evidence", "v3_select"],
                     choices=["v1_schema", "v2_evidence", "v3_select"])
@@ -213,13 +213,14 @@ async def main():
     args = ap.parse_args()
 
     sys.path.insert(0, str(ROOT.parent / "backend"))
+    from formfiller.core.cases import load_cases
     from formfiller.forms import get_form
     from formfiller.llm.ollama import Ollama
 
     form = get_form("t2201")
     chunk = next(c for c in form.chunks if c.id == GRID_CHUNK)
     grid_keys = list(chunk.keys)
-    hand = json.loads(Path(args.hand).read_text().splitlines()[0])
+    hand = load_cases(args.raw_note)[0]
     cases = make_cases(hand)[: args.limit] if args.limit else make_cases(hand)
 
     if args.write_cases:

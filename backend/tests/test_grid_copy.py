@@ -9,11 +9,12 @@ EVAL = Path(__file__).resolve().parents[2] / "eval"
 sys.path.insert(0, str(EVAL))
 
 import grid_copy as gc  # noqa: E402
+from formfiller.core.cases import load_cases  # noqa: E402
 from formfiller.forms import get_form  # noqa: E402
 
 FORM = get_form("t2201")
 GRID = list(next(c for c in FORM.chunks if c.id == gc.GRID_CHUNK).keys)
-HAND = json.loads((EVAL / "cases" / "hand.jsonl").read_text().splitlines()[0])
+HAND = load_cases(EVAL / "cases" / "raw_note.json")[0]
 CASES = gc.make_cases(HAND)
 BY_ID = {c["id"]: c for c in CASES}
 

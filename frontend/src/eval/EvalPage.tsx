@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { api, type EvalConfig, type Rates } from '../api'
+import { api, VARIANT_LABELS, type EvalConfig, type Rates } from '../api'
 import { Panel } from '../ui'
 import { cx } from '../styles'
 
 const pct = (v: number | null | undefined, d = 0) => (v == null ? '–' : `${(v * 100).toFixed(d)}%`)
 const secs = (ms: number) => `${(ms / 1000).toFixed(0)}s`
-const VARIANT: Record<string, string> = { v0_baseline: 'Prototype baseline', v1_schema: 'Schema + enums', v2_evidence: 'Schema + evidence', v3_select: 'Select, then fill' }
+const VARIANT: Record<string, string> = { ...VARIANT_LABELS, v0_baseline: 'Prototype baseline (retired)' }
 
 export function EvalPage() {
   const [runs, setRuns] = useState<Record<string, Record<string, EvalConfig>> | null>(null)
@@ -25,9 +25,12 @@ export function EvalPage() {
     return <p className="p-6 text-sm text-muted">No eval results yet. Run <code className="font-mono">python eval/run.py</code>.</p>
   }
 
-  const baseline = configs.find(([, c]) => c.config.variant === 'v0_baseline')
-  const best = [...configs].filter(([, c]) => c.config.variant !== 'v0_baseline')
-    .sort(([, a], [, b]) => b.aggregate.overall.f1 - a.aggregate.overall.f1)[0]
+  const current = configs.filter(([, c]) => c.config.variant in VARIANT_LABELS)
+  const best = [...current].sort(([, a], [, b]) => b.aggregate.overall.f1 - a.aggregate.overall.f1)[0]
+  // Compare the best pipeline with plain schema + enums (v1) on the same model.
+  const baseline = best && best[1].config.variant !== 'v1_schema'
+    ? current.find(([, c]) => c.config.variant === 'v1_schema' && c.config.model === best[1].config.model)
+    : undefined
   const n = configs[0][1].aggregate.n_cases
 
   return (
@@ -68,7 +71,7 @@ function Headline({ best, baseline }: { best: [string, EvalConfig]; baseline?: [
     <section>
       <p className="mb-2 text-xs text-muted">
         Best: <b className="text-ink">{best[1].config.model} · {VARIANT[best[1].config.variant]}</b>
-        {baseline && <> vs the original prototype ({baseline[1].config.model})</>}
+        {baseline && <> vs {VARIANT.v1_schema}</>}
       </p>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {tiles.map((t) => (

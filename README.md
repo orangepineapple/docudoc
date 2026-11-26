@@ -41,7 +41,7 @@ This version keeps JSON as the intermediate format but changes how it is produce
   - Omissions and section-routing accuracy.
   - Latency and tokens.
   - How well the "no quote found" flag predicts wrong answers.
-- **Configurations** cover models × pipeline variants (`v0_baseline` is the original prototype prompt, kept for comparison).
+- **Configurations** cover models × pipeline variants (`v1_schema`, `v2_evidence`, `v3_select`). The original prototype prompt (`v0_baseline`, raw PDF codes in free-form JSON) was retired; its last measured numbers stay in `eval/results/hand.json`.
 - **Grid hallucination probe** (`eval/grid_copy.py`, `make grid-check`): 21 variants of the hand case made by deleting or flipping one rating line in code, so gold is known by construction. On the 28-item mental-functions grid with `qwen2.5:7b`:
 
   | Pipeline | Invented ratings / form | Copied from a same-category item | Real ratings kept |
@@ -75,9 +75,9 @@ Tests and eval:
 
 ```bash
 make test                                   # 330 backend tests + frontend lint/build
-venv/bin/python eval/generate.py --n 40     # synthetic cases
-venv/bin/python eval/run.py --cases eval/cases/*.jsonl --split dev --run dev \
-    --models qwen2.5:7b qwen3:8b --variants v0_baseline v1_schema v2_evidence v3_select
+make eval                                   # v1-v3 on the 6 notes in eval/cases/raw_note*.json
+make eval-variants                          # v1-v3 on the notes + 25 controlled edits
+make grid-check                             # grid-hallucination regression gate
 ```
 
 ## Layout

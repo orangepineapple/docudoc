@@ -1,0 +1,208 @@
+{
+ "qwen2.5:7b|v1_schema": {
+  "structured": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 141,
+    "correct": 74,
+    "copied": 8,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "other": 1
+   },
+   "rated_accuracy": 1.0,
+   "wrong": 0,
+   "omitted": 0,
+   "halluc_per_case": 1.125,
+   "copied_per_case": 1.0,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "sparse": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 123,
+    "copied": 9,
+    "correct": 15,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "fabricated": 67,
+    "other": 8,
+    "wrong": 1,
+    "omitted": 1
+   },
+   "rated_accuracy": 0.8823529411764706,
+   "wrong": 1,
+   "omitted": 1,
+   "halluc_per_case": 10.5,
+   "copied_per_case": 1.125,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "paraphrase": {
+   "n_cases": 8,
+   "counts": {
+    "correct": 52,
+    "true_empty": 107,
+    "fabricated": 13,
+    "copied": 33,
+    "wrong": 2,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "other": 11,
+    "omitted": 6
+   },
+   "rated_accuracy": 0.8666666666666667,
+   "wrong": 2,
+   "omitted": 6,
+   "halluc_per_case": 7.125,
+   "copied_per_case": 4.125,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "functional": {
+   "n_cases": 8,
+   "counts": {
+    "other": 19,
+    "correct": 45,
+    "copied": 41,
+    "wrong": 9,
+    "fabricated": 47,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "true_empty": 59,
+    "omitted": 4
+   },
+   "rated_accuracy": 0.7758620689655172,
+   "wrong": 9,
+   "omitted": 4,
+   "halluc_per_case": 13.375,
+   "copied_per_case": 5.125,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "distractor": {
+   "n_cases": 8,
+   "counts": {
+    "other": 21,
+    "copied": 29,
+    "correct": 45,
+    "fabricated": 40,
+    "trap_items": 16,
+    "trap_filled": 13,
+    "true_empty": 81,
+    "omitted": 5,
+    "wrong": 3
+   },
+   "rated_accuracy": 0.8490566037735849,
+   "wrong": 3,
+   "omitted": 5,
+   "halluc_per_case": 11.25,
+   "copied_per_case": 3.625,
+   "trap_filled": 13,
+   "trap_items": 16
+  }
+ },
+ "qwen2.5:7b|v3_select": {
+  "structured": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 148,
+    "correct": 57,
+    "omitted": 16,
+    "copied": 2,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "wrong": 1
+   },
+   "rated_accuracy": 0.7702702702702703,
+   "wrong": 1,
+   "omitted": 16,
+   "halluc_per_case": 0.25,
+   "copied_per_case": 0.25,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "sparse": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 205,
+    "correct": 13,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "other": 1,
+    "omitted": 4,
+    "fabricated": 1
+   },
+   "rated_accuracy": 0.7647058823529411,
+   "wrong": 0,
+   "omitted": 4,
+   "halluc_per_case": 0.25,
+   "copied_per_case": 0.0,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "paraphrase": {
+   "n_cases": 8,
+   "counts": {
+    "omitted": 24,
+    "true_empty": 159,
+    "correct": 36,
+    "fabricated": 2,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "copied": 2,
+    "other": 1
+   },
+   "rated_accuracy": 0.6,
+   "wrong": 0,
+   "omitted": 24,
+   "halluc_per_case": 0.625,
+   "copied_per_case": 0.25,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "functional": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 154,
+    "correct": 24,
+    "other": 4,
+    "omitted": 30,
+    "copied": 6,
+    "trap_items": 0,
+    "trap_filled": 0,
+    "wrong": 4,
+    "fabricated": 2
+   },
+   "rated_accuracy": 0.41379310344827586,
+   "wrong": 4,
+   "omitted": 30,
+   "halluc_per_case": 1.5,
+   "copied_per_case": 0.75,
+   "trap_filled": 0,
+   "trap_items": 0
+  },
+  "distractor": {
+   "n_cases": 8,
+   "counts": {
+    "true_empty": 163,
+    "copied": 4,
+    "omitted": 16,
+    "correct": 33,
+    "wrong": 4,
+    "trap_items": 16,
+    "trap_filled": 3,
+    "other": 1,
+    "fabricated": 3
+   },
+   "rated_accuracy": 0.6226415094339622,
+   "wrong": 4,
+   "omitted": 16,
+   "halluc_per_case": 1.0,
+   "copied_per_case": 0.5,
+   "trap_filled": 3,
+   "trap_items": 16
+  }
+ }
+}

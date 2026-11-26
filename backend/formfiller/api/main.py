@@ -13,7 +13,8 @@ from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 from ..core import codec
-from ..core.extract import VARIANTS, PipelineConfig, run
+from ..core.cases import load_cases
+from ..core.extract import VARIANTS, PipelineConfig, Variant, run
 from ..core.fill import fill_pdf
 from ..forms import get_form, list_forms
 from ..llm.ollama import Ollama, OllamaError
@@ -69,7 +70,7 @@ class ExtractRequest(BaseModel):
     form_id: str = "t2201"
     notes: str = Field(min_length=1, max_length=50_000)
     model: str = DEFAULT_MODEL
-    variant: str = "v3_select"
+    variant: Variant = "v3_select"
     route: bool = True
 
 
@@ -77,8 +78,6 @@ class ExtractRequest(BaseModel):
 async def extract_stream(req: ExtractRequest, request: Request):
     """Server-sent events: routed, section (one per section), done."""
     form = _form(req.form_id)
-    if req.variant not in VARIANTS:
-        raise HTTPException(400, f"variant must be one of {VARIANTS}")
     cfg = PipelineConfig(model=req.model, variant=req.variant, route=req.route)
 
     async def events():
@@ -120,16 +119,11 @@ def fill(req: ValuesRequest):
 
 @app.get("/api/samples")
 def samples():
-    """Demo notes: the hand-labelled case plus hand-verified synthetic cases."""
+    """Demo notes: the LLM-generated notes in eval/cases/raw_note*.json."""
     out = []
-    for name in ("hand.jsonl", "synthetic.jsonl"):
-        p = EVAL_DIR / "cases" / name
-        if not p.exists():
-            continue
-        for line in p.read_text().splitlines():
-            c = json.loads(line)
-            if c.get("verified") or c.get("source") == "hand":
-                out.append({"id": c["id"], "style": c.get("style"), "sections": c.get("sections", []), "notes": c["notes"]})
+    for p in sorted((EVAL_DIR / "cases").glob("raw_note*.json")):
+        for c in load_cases(p):
+            out.append({"id": c["id"], "style": c.get("style"), "sections": c.get("sections", []), "notes": c["notes"]})
     return out
 
 

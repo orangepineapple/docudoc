@@ -48,7 +48,11 @@ export function NotesPane({ notes, setNotes, samples, meta, values, active, setA
   }, [active])
 
   const sampleLabel = (s: Sample) =>
-    s.id.startsWith('hand') ? 'Sample: hearing + mental health' : `Sample ${s.id.replace('syn-', '#')} · ${s.style} · ${s.sections.filter((x) => x !== 'cert').join(', ')}`
+    s.id === 'raw_note'
+      ? 'Sample: hearing + mental health'
+      : s.id.startsWith('raw_note_')
+        ? `Sample: ${s.sections.filter((x) => x !== 'cert').join(' + ')} · ${s.style}`
+        : `Sample ${s.id.replace('syn-', '#')} · ${s.style} · ${s.sections.filter((x) => x !== 'cert').join(', ')}`
 
   return (
     <Panel

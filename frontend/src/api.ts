@@ -1,4 +1,12 @@
 export type FieldKind = 'enum' | 'bool' | 'text' | 'year' | 'number'
+
+/** Pipeline variants; mirrors `Variant` in backend/formfiller/core/extract.py. */
+export type Variant = 'v1_schema' | 'v2_evidence' | 'v3_select'
+export const VARIANT_LABELS: Record<Variant, string> = {
+  v3_select: 'Select, then fill',
+  v2_evidence: 'Schema + evidence',
+  v1_schema: 'Schema + enums',
+}
 export type Value = string | boolean
 
 export interface FieldDef {
@@ -17,7 +25,7 @@ export interface FormSchema {
   fields: FieldDef[]
   profile_fields: Record<string, string>
   practitioner_types: string[]
-  variants: string[]
+  variants: Variant[]
 }
 
 export interface FieldMeta {
@@ -93,7 +101,7 @@ export const api = {
   },
 
   /** POST + server-sent events. EventSource can't POST, so parse the stream by hand. */
-  async extract(body: { notes: string; model: string; variant: string }, onEvent: (e: ExtractEvent) => void, signal: AbortSignal) {
+  async extract(body: { notes: string; model: string; variant: Variant }, onEvent: (e: ExtractEvent) => void, signal: AbortSignal) {
     const res = await fetch('/api/extract', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -130,6 +138,7 @@ export interface Rates {
 }
 
 export interface EvalConfig {
+  // string, not Variant: saved results may come from retired variants such as v0_baseline
   config: { model: string; variant: string; route: boolean; think: boolean; drop_ungrounded: boolean }
   aggregate: {
     n_cases: number

@@ -1,7 +1,7 @@
 """
 Run extraction configs over eval cases and score them.
 
-  python eval/run.py --cases eval/cases/hand.jsonl --models qwen2.5:7b --variants v0_baseline v2_evidence
+  python eval/run.py --cases eval/cases/raw_note.json --models qwen2.5:7b --variants v1_schema v3_select
 
 Raw per-case results are cached under eval/results/raw/<run>/ so an interrupted
 run resumes where it stopped. The summary goes to eval/results/<run>.json.
@@ -21,17 +21,16 @@ sys.path.insert(0, str(ROOT))
 from formfiller.core.extract import VARIANTS, PipelineConfig, extract  # noqa: E402
 from formfiller.forms import get_form  # noqa: E402
 from formfiller.llm.ollama import Ollama  # noqa: E402
+from formfiller.core.cases import load_cases as read_cases  # noqa: E402
 from metrics import aggregate, score_case  # noqa: E402
 
 
 def load_cases(paths: list[str], limit: int | None, split: str | None) -> list[dict]:
     cases = []
     for p in paths:
-        for line in Path(p).read_text().splitlines():
-            if line.strip():
-                c = json.loads(line)
-                if split is None or c.get("split", "dev") == split:
-                    cases.append(c)
+        for c in read_cases(p):
+            if split is None or c.get("split", "dev") == split:
+                cases.append(c)
     return cases[:limit] if limit else cases
 
 
@@ -61,7 +60,7 @@ async def run_config(form, cfg: PipelineConfig, cases: list[dict], raw_dir: Path
 
 async def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cases", nargs="+", default=[str(ROOT / "cases" / "hand.jsonl")])
+    ap.add_argument("--cases", nargs="+", default=[str(ROOT / "cases" / "raw_note.json")])
     ap.add_argument("--split", default=None, help="dev | test (default: all)")
     ap.add_argument("--models", nargs="+", default=["qwen2.5:7b"])
     ap.add_argument("--variants", nargs="+", default=["v3_select"], choices=VARIANTS)

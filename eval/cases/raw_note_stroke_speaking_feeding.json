@@ -1,0 +1,87 @@
+{
+  "id": "raw_note_stroke_speaking_feeding",
+  "source": "raw_note",
+  "style": "narrative",
+  "verified": false,
+  "split": "dev",
+  "sections": ["speaking", "feeding", "cert"],
+  "covers": "Speaking and feeding after a stroke. Speaking is expected to improve (improved = yes with a year); feeding is not. Hand weakness is mentioned but walking and dressing must stay empty.",
+  "notes": [
+    "The patient is a 68-year-old who had a left middle cerebral artery ischemic stroke in March 2023.",
+    "I have been their family physician since 2010.",
+    "",
+    "Since the stroke they have expressive aphasia and dysarthria. They cannot make themselves understood by strangers, and",
+    "even family members understand only short phrases. A conversation takes more than three times as long as for someone",
+    "of the same age, because they must write words down or point to a picture board. This is the case all or substantially",
+    "all of the time. They attend speech-language therapy twice a week and use a tablet communication app.",
+    "No medication is taken for the speech impairment.",
+    "",
+    "They also have oropharyngeal dysphagia from the stroke and need a pureed diet with thickened fluids. Weakness in the",
+    "right hand means they cannot cut food or open containers. They eat with a weighted spoon and a plate guard.",
+    "Each meal takes over an hour, more than three times longer than normal, all or substantially all of the time.",
+    "No medication is taken for the feeding impairment.",
+    "",
+    "Both impairments began in 2023 and have lasted more than 12 months. With ongoing therapy, their speech-language",
+    "pathologist expects speech to improve by 2027. The feeding impairment is not expected to improve.",
+    "",
+    "Medical records are on file. Under my care from 2010 to present."
+  ],
+  "gold": {
+    "speaking_q1_conditions": "Expressive aphasia and dysarthria after ischemic stroke (2023)",
+    "speaking_q2_takes_medication": "no",
+    "speaking_q3_devices_therapy": "Speech-language therapy, tablet communication app, picture board",
+    "speaking_q4_examples": "Cannot be understood by strangers; family understand only short phrases; must write words down or use a picture board",
+    "speaking_q5_unable_or_inordinate": "yes",
+    "speaking_q6_all_or_substantially": "yes",
+    "speaking_q7_year_impaired": "2023",
+    "speaking_q8_lasted_12mo": "yes",
+    "speaking_q9_improved": "yes",
+    "speaking_q9_year": "2027",
+    "feeding_q1_conditions": "Oropharyngeal dysphagia after ischemic stroke (2023)",
+    "feeding_q2_takes_medication": "no",
+    "feeding_q3_devices_therapy": "Weighted spoon, plate guard, pureed diet, thickened fluids",
+    "feeding_q4_examples": "Cannot cut food or open containers; needs pureed food; each meal takes over an hour",
+    "feeding_q5_unable_or_inordinate": "yes",
+    "feeding_q6_all_or_substantially": "yes",
+    "feeding_q7_year_impaired": "2023",
+    "feeding_q8_lasted_12mo": "yes",
+    "feeding_q9_improved": "no",
+    "cert_year_from": "2010",
+    "cert_year_to": "*",
+    "cert_q2_medical_info_on_file": "yes"
+  },
+  "variations": [
+    {
+      "id": "flip-speech-improvement-unsure",
+      "kind": "flip",
+      "tests": "Improvement 'yes' + year becomes 'unsure'; the year must disappear.",
+      "edits": [{"replace": ["pathologist expects speech to improve by 2027. The feeding impairment is not expected to improve."],
+                 "with": ["pathologist is unsure whether speech will improve. The feeding impairment is not expected to improve."]}],
+      "gold": {"speaking_q9_improved": "unsure", "speaking_q9_year": null}
+    },
+    {
+      "id": "drop-speech-medication",
+      "kind": "drop",
+      "tests": "Without the 'no medication' line, speaking Q2 must stay empty instead of copying feeding's 'no'.",
+      "edits": [{"replace": ["No medication is taken for the speech impairment."], "with": []}],
+      "gold": {"speaking_q2_takes_medication": null}
+    },
+    {
+      "id": "flip-feeding-not-marked",
+      "kind": "flip",
+      "tests": "Feeding stops being a marked restriction (Q5 = no); speaking's Q5 must stay yes.",
+      "edits": [{"replace": ["Each meal takes over an hour, more than three times longer than normal, all or substantially all of the time."],
+                 "with": ["Meals take somewhat longer than normal, but not three times as long."]}],
+      "gold": {"feeding_q5_unable_or_inordinate": "no", "feeding_q6_all_or_substantially": "*",
+               "feeding_q4_examples": "Cannot cut food or open containers; needs pureed food"}
+    },
+    {
+      "id": "distractor-spouse-hearing",
+      "kind": "distractor",
+      "tests": "The spouse's hearing loss must not open the hearing section.",
+      "edits": [{"after": "I have been their family physician since 2010.",
+                 "insert": ["They live with their spouse, who has moderate hearing loss in both ears and wears hearing aids."]}],
+      "gold": {}
+    }
+  ]
+}

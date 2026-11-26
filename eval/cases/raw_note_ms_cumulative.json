@@ -1,0 +1,112 @@
+{
+  "id": "raw_note_ms_cumulative",
+  "source": "raw_note",
+  "style": "soap",
+  "verified": false,
+  "split": "dev",
+  "sections": ["walking", "dressing", "cumulative", "cert"],
+  "covers": "Cumulative effect: walking and dressing are significant but NOT marked on their own (Q5 = no), and only together amount to a marked restriction.",
+  "notes": [
+    "Neurology follow-up - clinic note",
+    "",
+    "S: 52-year-old with multiple sclerosis, diagnosed 2014, now secondary progressive. Reports worsening leg weakness and",
+    "fatigue. Numbness and poor coordination in both hands make buttons, zippers and shoelaces very difficult.",
+    "",
+    "O: Spastic paraparesis, worse on the left. Walks with a four-wheeled walker. Walking 100 m takes about 2.5 minutes",
+    "with one rest break. Reduced fine motor dexterity in both hands.",
+    "",
+    "Medications: ocrelizumab infusions every 6 months; baclofen 10 mg three times daily for spasticity.",
+    "Other therapy: physiotherapy weekly. Uses a button hook and elastic shoelaces for dressing.",
+    "",
+    "A: Multiple sclerosis with significant limitations in walking and in dressing.",
+    "Walking: significantly limited since 2021, but walking does not take three times longer than for someone of the same age.",
+    "Dressing: significantly limited since 2022. The patient dresses without help, but needs about twice the normal time.",
+    "Neither limitation on its own is a marked restriction.",
+    "The walking and dressing limitations exist together all or substantially all of the time, and their cumulative effect",
+    "is equivalent to a marked restriction in one basic activity of daily living. The cumulative effect began in 2022.",
+    "All limitations have lasted more than 12 months and are not expected to improve.",
+    "",
+    "P: Continue ocrelizumab and baclofen. Occupational therapy referral for home adaptations.",
+    "",
+    "Patient under my care since 2016 to present. Records on file."
+  ],
+  "gold": {
+    "walking_q1_conditions": "Multiple sclerosis (2014)",
+    "walking_q2_takes_medication": "yes",
+    "walking_q3_devices_therapy": "Four-wheeled walker, baclofen, ocrelizumab, physiotherapy",
+    "walking_q4_examples": "Walks with a four-wheeled walker; 100 m takes about 2.5 minutes with a rest break",
+    "walking_q5_unable_or_inordinate": "no",
+    "walking_q6_all_or_substantially": "*",
+    "walking_q7_year_impaired": "2021",
+    "walking_q8_lasted_12mo": "yes",
+    "walking_q9_improved": "no",
+    "dressing_q1_conditions": "Multiple sclerosis (2014)",
+    "dressing_q2_takes_medication": "*",
+    "dressing_q3_devices_therapy": "Button hook, elastic shoelaces",
+    "dressing_q4_examples": "Buttons, zippers and shoelaces are very difficult; needs about twice the normal time to dress",
+    "dressing_q5_unable_or_inordinate": "no",
+    "dressing_q6_all_or_substantially": "*",
+    "dressing_q7_year_impaired": "2022",
+    "dressing_q8_lasted_12mo": "yes",
+    "dressing_q9_improved": "no",
+    "cumulative_q1_walking": true,
+    "cumulative_q1_dressing": true,
+    "cumulative_q2_examples": "Walking with a walker and dressing with a button hook both take much longer than normal",
+    "cumulative_q3_exist_together": "yes",
+    "cumulative_q4_equivalent_to_marked": "yes",
+    "cumulative_q5_year_began": "2022",
+    "cumulative_q6_lasted_12mo": "yes",
+    "cumulative_q7_improved": "no",
+    "cert_year_from": "2016",
+    "cert_year_to": "*",
+    "cert_q2_medical_info_on_file": "yes"
+  },
+  "variations": [
+    {
+      "id": "flip-improvement-unsure",
+      "kind": "flip",
+      "tests": "One sentence sets improvement for three sections at once; all three must follow it.",
+      "edits": [{"replace": ["All limitations have lasted more than 12 months and are not expected to improve."],
+                 "with": ["All limitations have lasted more than 12 months. It is unclear whether they will improve."]}],
+      "gold": {"walking_q9_improved": "unsure", "dressing_q9_improved": "unsure", "cumulative_q7_improved": "unsure"}
+    },
+    {
+      "id": "negate-medication",
+      "kind": "negate",
+      "tests": "Stated absence of medication must become 'no', not be left empty or copied from the plan.",
+      "edits": [
+        {"replace": ["Medications: ocrelizumab infusions every 6 months; baclofen 10 mg three times daily for spasticity."],
+         "with": ["Medications: none. The patient has declined disease-modifying therapy and antispasticity medication."]},
+        {"replace": ["P: Continue ocrelizumab and baclofen. Occupational therapy referral for home adaptations."],
+         "with": ["P: Occupational therapy referral for home adaptations."]}
+      ],
+      "gold": {"walking_q2_takes_medication": "no", "walking_q3_devices_therapy": "Four-wheeled walker, physiotherapy"}
+    },
+    {
+      "id": "flip-walking-year",
+      "kind": "flip",
+      "tests": "Walking year changes; the other sections' years must not change with it.",
+      "edits": [{"replace": ["Walking: significantly limited since 2021, but walking does not take three times longer than for someone of the same age."],
+                 "with": ["Walking: significantly limited since 2020, but walking does not take three times longer than for someone of the same age."]}],
+      "gold": {"walking_q7_year_impaired": "2020"}
+    },
+    {
+      "id": "flip-walking-marked",
+      "kind": "flip",
+      "tests": "Walking becomes a marked restriction on its own (Q5 and Q6 = yes); the cumulative section is unchanged.",
+      "edits": [{"replace": ["Walking: significantly limited since 2021, but walking does not take three times longer than for someone of the same age."],
+                 "with": ["Walking: since 2021, walking takes more than three times longer than for someone of the same age, all or substantially all of the time."]},
+                {"replace": ["Neither limitation on its own is a marked restriction."],
+                 "with": ["Dressing on its own is not a marked restriction."]}],
+      "gold": {"walking_q5_unable_or_inordinate": "yes", "walking_q6_all_or_substantially": "yes"}
+    },
+    {
+      "id": "distractor-spouse-wheelchair",
+      "kind": "distractor",
+      "tests": "Another person's wheelchair must not become the patient's device.",
+      "edits": [{"after": "with one rest break. Reduced fine motor dexterity in both hands.",
+                 "insert": ["Lives with spouse, who uses a power wheelchair after a spinal cord injury."]}],
+      "gold": {}
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 Translate between logical values (readable enums, used by the LLM and UI) and
 raw FIELD_MAP values (PDF option codes, used by fill.py).
 
-Raw format is the same one the original prototype produced:
+Raw format (what the PDF widgets take):
   radio_group -> option code "/0"
   choice      -> option text
   checkbox    -> True
